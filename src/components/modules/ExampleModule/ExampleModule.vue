@@ -106,6 +106,6 @@ const getTableData = async (): Promise<FetchResponse<Member> | undefined> => {
   <DialogDeleteUser
     v-model:visible="showDeleteUserDialog"
     :list="selectedUser ? [selectedUser] : []"
-    list-label="name"
+    list-label="nickName"
   />
 </template>

@@ -19,6 +19,7 @@ onMounted(() => {
   setBreadcrumbs(menus);
 });
 </script>
+
 <template>
   <ExampleModule />
 </template>

@@ -1,5 +1,5 @@
+import { Option } from '@fewangsit/wangsvue/components/dropdown/Dropdown.vue';
 import { FilterField } from '@fewangsit/wangsvue/components/filtercontainer/FilterContainer.vue.d';
-import { MultiSelectOption } from '@fewangsit/wangsvue/types/options.type';
 
 export const quickFilterFields: FilterField[] = [
   {
@@ -7,9 +7,9 @@ export const quickFilterFields: FilterField[] = [
     field: 'country',
     type: 'multiselect',
     placeholder: 'Select country',
-    fetchOptionFn: async (): Promise<MultiSelectOption[]> => {
+    fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        return [{ label: 'Indonesia' }, { label: 'Malaysia' }];
       } catch (error) {
         console.error(error);
         return [];
@@ -30,9 +30,9 @@ export const filterFields: FilterField[] = [
     field: 'country',
     type: 'multiselect',
     placeholder: 'Select country',
-    fetchOptionFn: async (): Promise<MultiSelectOption[]> => {
+    fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Indonesia' }];
+        return [{ label: 'Indonesia' }, { label: 'Malaysia' }];
       } catch (error) {
         console.error(error);
         return [];

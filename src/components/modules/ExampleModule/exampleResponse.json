@@ -13,6 +13,16 @@
         "nickName": "BE1",
         "teams": ["BE", "UIUX", "QC", "MOB", "FE", "DEV", "TW", "IOT"],
         "email": "be1@mailnesia.com"
+      },
+      {
+        "_id": "675c1c9563710519e9e9bfa9",
+        "key": 33,
+        "profilePictureBig": "/members/1735785084341-big.webp",
+        "profilePictureMedium": "/members/1735785084341-medium.webp",
+        "profilePictureSmall": "/members/1735785084341-small.webp",
+        "nickName": "CE1",
+        "teams": ["BE", "UIUX", "QC", "MOB", "FE", "DEV", "TW", "IOT"],
+        "email": "ce1@mailnesia.com"
       }
     ]
   }

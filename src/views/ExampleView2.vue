@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useBreadcrumbStore } from '@/store';
-import { BreadcrumbMenu } from '@fewangsit/wangsvue/components/breadcrumb/Breadcrumb.vue';
+import { BreadcrumbMenu } from '@fewangsit/wangsvue/components/breadcrumb/Breadcrumb.vue.d';
+import AssetModule from '@/components/modules/ExampleModule/AssetModule.vue';
 
 const { setBreadcrumbs } = useBreadcrumbStore();
 
@@ -18,6 +19,7 @@ onMounted(() => {
   setBreadcrumbs(menus);
 });
 </script>
+
 <template>
-  <h1>Hello from Another Tab</h1>
+  <AssetModule />
 </template>

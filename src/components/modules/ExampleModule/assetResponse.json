@@ -1,0 +1,48 @@
+{
+  "status": 200,
+  "message": "Successfully get asset list",
+  "data": {
+    "totalRecords": 112,
+    "data": [
+      {
+        "_id": "675c1c9563710519e9e9bfa8",
+        "key": 36,
+        "profilePictureBig": "/members/1735785084341-big.webp",
+        "profilePictureMedium": "/members/1735785084341-medium.webp",
+        "profilePictureSmall": "/members/1735785084341-small.webp",
+        "name": "Meja Lipat - 359",
+        "groups": ["Room 402"],
+        "categories": ["Furniture"],
+        "brands": ["Futura"],
+        "models": ["4627"],
+        "aliasName": "-"
+      },
+      {
+        "_id": "675c1c9563710519e9e9bfa9",
+        "key": 36,
+        "profilePictureBig": "/members/1735785084341-big.webp",
+        "profilePictureMedium": "/members/1735785084341-medium.webp",
+        "profilePictureSmall": "/members/1735785084341-small.webp",
+        "name": "AC Portable Indoor - 1",
+        "groups": ["Room 301"],
+        "categories": ["AC"],
+        "brands": ["LG"],
+        "models": ["Hercules"],
+        "aliasName": "AC ruang rapat"
+      },
+      {
+        "_id": "675c1c9563710519e9e9bfa1",
+        "key": 36,
+        "profilePictureBig": "/members/1735785084341-big.webp",
+        "profilePictureMedium": "/members/1735785084341-medium.webp",
+        "profilePictureSmall": "/members/1735785084341-small.webp",
+        "name": "Sound System - 25",
+        "groups": ["Meeting Room"],
+        "categories": ["Audio"],
+        "brands": ["JBL"],
+        "models": ["JBL"],
+        "aliasName": "-"
+      }
+    ]
+  }
+}
