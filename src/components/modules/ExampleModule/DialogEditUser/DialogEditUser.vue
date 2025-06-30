@@ -1,23 +1,103 @@
 <script setup lang="ts">
-import { DialogConfirm, eventBus } from '@fewangsit/wangsvue';
-import { DialogConfirmProps } from '@fewangsit/wangsvue/components/dialogconfirm/DialogConfirm.vue.d';
+import {
+  DialogForm,
+  Dropdown,
+  ImageCompressor,
+  InputText,
+} from '@fewangsit/wangsvue';
+import { ref } from 'vue';
 
-defineProps<
-  Omit<DialogConfirmProps, 'header' | 'severity' | 'closeAfterConfirm'>
->();
+type OptionValue = string | number;
 
 const visible = defineModel<boolean>('visible', { default: false });
+const nonnullablevalue = ref<OptionValue>();
 </script>
 
 <template>
-  <DialogConfirm
-    v-bind="$props"
+  <DialogForm
     v-model:visible="visible"
-    @confirm="eventBus.emit('data-table:update', {})"
-    actionable
-    confirm-label="Yakin"
-    header="Delete User"
-    header-icon="delete-bin-7"
-    severity="danger"
-  />
+    :aside-right-width="600"
+    :buttons-template="['submit', 'cancel', 'clear']"
+    :closable="false"
+    header="Edit Asset"
+    severity="success"
+    width="medium"
+  >
+    <template #fields>
+      <div class="grid grid-rows-3 gap-4">
+        <div class="grid grid-cols-2 gap-4">
+          <Dropdown
+            v-model="nonnullablevalue"
+            :options="[
+              { label: 'null', value: null },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]"
+            field-name="groups"
+            label="Group"
+            option-label="label"
+            option-value="value"
+          />
+          <Dropdown
+            v-model="nonnullablevalue"
+            :options="[
+              { label: 'null', value: null },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]"
+            field-name="categories"
+            label="Category"
+            option-label="label"
+            option-value="value"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <Dropdown
+            v-model="nonnullablevalue"
+            :options="[
+              { label: 'null', value: null },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]"
+            field-name="name"
+            label="Name"
+            option-label="label"
+            option-value="value"
+          />
+          <InputText
+            :mandatory="false"
+            field-name="aliasName"
+            label="Alias Name"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <Dropdown
+            v-model="nonnullablevalue"
+            :options="[
+              { label: 'null', value: null },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]"
+            field-name="brands"
+            label="Brand"
+            option-label="label"
+            option-value="value"
+          />
+          <Dropdown
+            v-model="nonnullablevalue"
+            :options="[
+              { label: 'null', value: null },
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+            ]"
+            field-name="models"
+            label="Model/Type"
+            option-label="label"
+            option-value="value"
+          />
+        </div>
+      </div>
+      <ImageCompressor :mandatory="false" multiple label="Foto/>
+    </template>
+  </DialogForm>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
-import { BadgeGroup, DataTable } from '@fewangsit/wangsvue';
+import { Badge, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
   TableCellComponent,
@@ -9,13 +9,13 @@ import {
 import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
 import router from '@/router';
-import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
+import DialogEditUser from './DialogEditUser/DialogEditUser.vue';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
 import response from './assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 
 const selectedUser = shallowRef<Asset>();
-const showDeleteUserDialog = shallowRef<boolean>(false);
+const showEditUserDialog = shallowRef<boolean>(false);
 
 const singleAction: MenuItem[] = [
   {
@@ -28,9 +28,8 @@ const singleAction: MenuItem[] = [
   {
     label: 'Edit',
     icon: 'edit',
-    danger: true,
     command: (): void => {
-      showDeleteUserDialog.value = true;
+      showEditUserDialog.value = true;
     },
   },
 ];
@@ -47,13 +46,12 @@ const tableColumns = computed<TableColumn[]>(() => {
       field: 'groups',
       header: 'Group',
       sortable: true,
+      fixed: true,
       bodyComponent: (data: Asset): TableCellComponent => {
         return {
-          component: BadgeGroup,
+          component: Badge,
           props: {
-            labels: data.groups,
-            limit: 2,
-            headerLabel: 'Group',
+            label: data.groups,
           },
         };
       },
@@ -62,13 +60,12 @@ const tableColumns = computed<TableColumn[]>(() => {
       field: 'categories',
       header: 'Category',
       sortable: true,
+      fixed: true,
       bodyComponent: (data: Asset): TableCellComponent => {
         return {
-          component: BadgeGroup,
+          component: Badge,
           props: {
-            labels: data.categories,
-            limit: 2,
-            headerlabel: 'Category',
+            label: data.categories,
           },
         };
       },
@@ -79,11 +76,9 @@ const tableColumns = computed<TableColumn[]>(() => {
       sortable: true,
       bodyComponent: (data: Asset): TableCellComponent => {
         return {
-          component: BadgeGroup,
+          component: Badge,
           props: {
-            labels: data.brands,
-            limit: 2,
-            headerlabel: 'Brand',
+            label: data.brands,
           },
         };
       },
@@ -94,11 +89,9 @@ const tableColumns = computed<TableColumn[]>(() => {
       sortable: true,
       bodyComponent: (data: Asset): TableCellComponent => {
         return {
-          component: BadgeGroup,
+          component: Badge,
           props: {
-            labels: data.models,
-            limit: 2,
-            headerlabel: 'Model/Type',
+            label: data.models,
           },
         };
       },
@@ -138,8 +131,8 @@ const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
     use-option
     use-paginator
   />
-  <DialogDeleteUser
-    v-model:visible="showDeleteUserDialog"
+  <DialogEditUser
+    v-model:visible="showEditUserDialog"
     :list="selectedUser ? [selectedUser] : []"
     list-label="name"
   />
