@@ -11,10 +11,10 @@
         "profilePictureMedium": "/members/1735785084341-medium.webp",
         "profilePictureSmall": "/members/1735785084341-small.webp",
         "name": "Meja Lipat - 359",
-        "groups": ["Room 402"],
-        "categories": ["Furniture"],
-        "brands": ["Futura"],
-        "models": ["4627"],
+        "group": "Room 402",
+        "category": "Furniture",
+        "brand": "Futura",
+        "model": "4627",
         "aliasName": "-"
       },
       {
@@ -24,10 +24,10 @@
         "profilePictureMedium": "/members/1735785084341-medium.webp",
         "profilePictureSmall": "/members/1735785084341-small.webp",
         "name": "AC Portable Indoor - 1",
-        "groups": ["Room 301"],
-        "categories": ["AC"],
-        "brands": ["LG"],
-        "models": ["Hercules"],
+        "group": "Room 301",
+        "category": "AC",
+        "brand": "LG",
+        "model": "Hercules",
         "aliasName": "AC ruang rapat"
       },
       {
@@ -37,10 +37,10 @@
         "profilePictureMedium": "/members/1735785084341-medium.webp",
         "profilePictureSmall": "/members/1735785084341-small.webp",
         "name": "Sound System - 25",
-        "groups": ["Meeting Room"],
-        "categories": ["Audio"],
-        "brands": ["JBL"],
-        "models": ["JBL"],
+        "group": "Meeting Room",
+        "category": "Audio",
+        "brand": "JBL",
+        "model": "JBL",
         "aliasName": "-"
       }
     ]

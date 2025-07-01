@@ -14,7 +14,7 @@ import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
 import response from '../AssetModule/assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 
-const selectedUser = shallowRef<Asset>();
+const selectedAsset = shallowRef<Asset>();
 const showEditAssetDialog = shallowRef<boolean>(false);
 
 const singleAction: MenuItem[] = [
@@ -22,7 +22,10 @@ const singleAction: MenuItem[] = [
     label: 'Detail',
     icon: 'file-copy',
     command: (): void => {
-      router.push('/detail');
+      router.push({
+        name: 'AssetDetailView',
+        params: { selectedAssetId: selectedAsset.value?._id },
+      });
     },
   },
   {
@@ -51,7 +54,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         return {
           component: Badge,
           props: {
-            label: data.groups,
+            label: data.group,
           },
         };
       },
@@ -65,7 +68,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         return {
           component: Badge,
           props: {
-            label: data.categories,
+            label: data.category,
           },
         };
       },
@@ -78,7 +81,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         return {
           component: Badge,
           props: {
-            label: data.brands,
+            label: data.brand,
           },
         };
       },
@@ -91,7 +94,7 @@ const tableColumns = computed<TableColumn[]>(() => {
         return {
           component: Badge,
           props: {
-            label: data.models,
+            label: data.model,
           },
         };
       },
@@ -124,16 +127,18 @@ const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
     :columns="tableColumns"
     :fetch-function="getTableData"
     :options="singleAction"
-    @toggle-option="selectedUser = $event"
+    @toggle-option="selectedAsset = $event"
     data-key="_id"
     lazy
     table-name="asset-list"
     use-option
     use-paginator
   />
+
   <DialogEditAsset
     v-model:visible="showEditAssetDialog"
-    :list="selectedUser ? [selectedUser] : []"
+    :list="selectedAsset ? [selectedAsset] : []"
+    :selected-asset="selectedAsset"
     list-label="name"
   />
 </template>

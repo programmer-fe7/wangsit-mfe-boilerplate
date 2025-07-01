@@ -11,7 +11,7 @@ const menus: BreadcrumbMenu[] = [
     name: 'Wangs',
   },
   {
-    name: 'Another Page',
+    name: 'Asset',
   },
 ];
 

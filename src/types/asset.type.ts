@@ -5,9 +5,9 @@ export interface Asset {
   profilePictureMedium?: string;
   profilePictureSmall?: string;
   name: string;
-  groups: string[];
-  categories: string[];
-  brands: string[];
-  models: string[];
+  group: string;
+  category: string;
+  brand: string;
+  model: string;
   aliasName: string;
 }

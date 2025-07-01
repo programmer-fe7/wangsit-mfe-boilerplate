@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { useBreadcrumbStore } from '@/store';
 import { BreadcrumbMenu } from '@fewangsit/wangsvue/components/breadcrumb/Breadcrumb.vue.d';
-import AssetModule from '@/components/modules/ExampleModule/AssetModule.vue';
+import AssetDetailModule from '@/components/modules/AssetDetailModule/AssetDetailModule.vue';
 
 const { setBreadcrumbs } = useBreadcrumbStore();
 
@@ -11,7 +11,7 @@ const menus: BreadcrumbMenu[] = [
     name: 'Wangs',
   },
   {
-    name: 'Another Page',
+    name: 'Asset',
   },
 ];
 
@@ -21,5 +21,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <AssetModule />
+  <AssetDetailModule />
 </template>

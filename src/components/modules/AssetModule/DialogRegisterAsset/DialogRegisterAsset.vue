@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Asset } from '@/types/asset.type';
 import {
   DialogForm,
   Dropdown,
@@ -8,37 +7,25 @@ import {
   useToast,
 } from '@fewangsit/wangsvue';
 import { OptionValue } from '@fewangsit/wangsvue/components/dropdown/Dropdown.vue';
+import { Nullable } from '@fewangsit/wangsvue/components/ts-helpers';
 import { shallowRef } from 'vue';
-
-const props = defineProps<{
-  selectedAsset: Asset | undefined;
-}>();
 
 const visible = defineModel<boolean>('visible', { default: false });
 
-const editToast = useToast();
+const registerToast = useToast();
 
 const groupsDropdownValue = shallowRef<OptionValue>();
 const categoriesDropdownValue = shallowRef<OptionValue>();
 const nameDropdownValue = shallowRef<OptionValue>();
 const brandsDropdownValue = shallowRef<OptionValue>();
 const modelsDropdownValue = shallowRef<OptionValue>();
-const aliasNameInputTextValue = shallowRef<string>();
+const aliasNameInputTextValue = shallowRef<Nullable<string>>();
 
 const openToast = (message: string, error?: boolean): void => {
-  editToast.add({
+  registerToast.add({
     message,
     error,
   });
-};
-
-const showForm = (): void => {
-  groupsDropdownValue.value = props.selectedAsset?.group;
-  categoriesDropdownValue.value = props.selectedAsset?.category;
-  nameDropdownValue.value = props.selectedAsset?.name;
-  brandsDropdownValue.value = props.selectedAsset?.brand;
-  modelsDropdownValue.value = props.selectedAsset?.model;
-  aliasNameInputTextValue.value = props.selectedAsset?.aliasName;
 };
 </script>
 
@@ -48,10 +35,10 @@ const showForm = (): void => {
     :aside-right-width="600"
     :buttons-template="['submit', 'cancel', 'clear']"
     :closable="false"
-    @show="showForm"
-    @submit="openToast('Success, asset has been edited.')"
-    header="Edit Asset"
+    @submit="openToast('Success, asset has been registered.')"
+    header="Register Asset"
     severity="success"
+    show-stay-checkbox
     width="medium"
   >
     <template #fields>
@@ -59,13 +46,10 @@ const showForm = (): void => {
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
             v-model="groupsDropdownValue"
-            :initial-value="groupsDropdownValue"
             :options="[
               { label: 'Room 402', value: 'Room 402' },
               { label: 'Warehouse', value: 'Warehouse' },
               { label: 'Garage', value: 'Garage' },
-              { label: 'Room 301', value: 'Room 301' },
-              { label: 'Meeting Room', value: 'Meeting Room' },
             ]"
             field-name="groups"
             label="Group"
@@ -76,14 +60,10 @@ const showForm = (): void => {
           />
           <Dropdown
             v-model="categoriesDropdownValue"
-            :initial-value="categoriesDropdownValue"
             :options="[
               { label: 'Elektronik', value: 'Elektronik' },
               { label: 'Transportasi', value: 'Transportasi' },
               { label: 'Sanitasi', value: 'Sanitasi' },
-              { label: 'Furniture', value: 'Furniture' },
-              { label: 'AC', value: 'AC' },
-              { label: 'Audio', value: 'Audio' },
             ]"
             field-name="categories"
             label="Category"
@@ -96,7 +76,6 @@ const showForm = (): void => {
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
             v-model="nameDropdownValue"
-            :initial-value="nameDropdownValue"
             :options="[
               { label: 'Name 1', value: 'Name 1' },
               { label: 'Name 2', value: 'Name 2' },
@@ -113,7 +92,6 @@ const showForm = (): void => {
             v-model="aliasNameInputTextValue"
             :mandatory="false"
             :max-length="30"
-            :value="aliasNameInputTextValue"
             field-info="You can input an alias name for convenience in searching for assets and to differentiate them from others.`"
             field-name="aliasName"
             label="Alias Name"
@@ -123,14 +101,10 @@ const showForm = (): void => {
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
             v-model="brandsDropdownValue"
-            :initial-value="brandsDropdownValue"
             :options="[
               { label: 'Samsung', value: 'Samsung' },
               { label: 'Hyundai', value: 'Hyundai' },
               { label: 'Apple', value: 'Apple' },
-              { label: 'Futura', value: 'Futura' },
-              { label: 'LG', value: 'LG' },
-              { label: 'JBL', value: 'JBL' },
             ]"
             field-name="brands"
             label="Brand"
@@ -141,14 +115,10 @@ const showForm = (): void => {
           />
           <Dropdown
             v-model="modelsDropdownValue"
-            :initial-value="modelsDropdownValue"
             :options="[
               { label: 'Macbook Pro', value: 'Macbook Pro' },
               { label: 'Asus', value: 'Asus' },
               { label: 'Ultra 24', value: 'Ultra 24' },
-              { label: '4627', value: '4627' },
-              { label: 'Hercules', value: 'Hercules' },
-              { label: 'JBL', value: 'JBL' },
             ]"
             field-name="models"
             label="Model/Type"
@@ -169,4 +139,6 @@ const showForm = (): void => {
       />
     </template>
   </DialogForm>
+
+  <Toast />
 </template>

@@ -14,14 +14,16 @@ const routes: Readonly<RouteRecordRaw[]> = [
       },
       {
         path: 'another-page',
-        name: 'AnotherExampleView',
-        component: (): Promise<Component> => import('@/views/ExampleView2.vue'),
+        name: 'AssetListView',
+        component: (): Promise<Component> =>
+          import('@/views/AssetListView.vue'),
       },
       {
-        path: 'detail',
+        path: 'detail/:selectedAssetId',
         name: 'AssetDetailView',
         component: (): Promise<Component> =>
           import('@/views/AssetDetailView.vue'),
+        props: true,
       },
     ],
   },

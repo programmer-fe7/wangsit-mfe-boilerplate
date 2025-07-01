@@ -6,23 +6,30 @@ import {
   ButtonDownload,
   ButtonFilter,
   ButtonSearch,
+  Button,
 } from '@fewangsit/wangsvue';
-import DialogEditAsset from './DialogEditAsset/DialogEditAsset.vue';
+import DialogDeleteAsset from './DialogDeleteAsset/DialogDeleteAsset.vue';
+import DialogRegisterAsset from './DialogRegisterAsset/DialogRegisterAsset.vue';
 import { Asset } from '@/types/asset.type';
 
 const dataSelected = shallowRef<Asset[]>([]);
-const showEditAssetDialog = shallowRef(false);
+const showDeleteAssetDialog = shallowRef(false);
+const showRegisterAssetDialog = shallowRef(false);
 
 const bulkAction: MenuItem[] = [
   {
-    label: 'Delete User',
+    label: 'Delete Asset',
     icon: 'checkbox-blank-circle',
-    danger: true,
+    danger: false,
     command: (): void => {
-      showEditAssetDialog.value = true;
+      showDeleteAssetDialog.value = true;
     },
   },
 ];
+
+const changeRegisterAssetDialogVisibilityState = (): void => {
+  showRegisterAssetDialog.value = !showRegisterAssetDialog.value;
+};
 </script>
 
 <template>
@@ -35,11 +42,25 @@ const bulkAction: MenuItem[] = [
     <ButtonSearch class="ml-auto" table-name="asset-list" />
     <ButtonDownload file-name="Download" table-name="asset-list" />
     <ButtonFilter table-name="asset-list" />
+    <Button
+      :outlined="false"
+      @click="changeRegisterAssetDialogVisibilityState"
+      icon="add"
+      icon-pos="left"
+      label="Register"
+      rounded
+      severity="secondary"
+    />
   </div>
 
-  <DialogEditAsset
-    v-model:visible="showEditAssetDialog"
+  <DialogDeleteAsset
+    v-model:visible="showDeleteAssetDialog"
     :list="dataSelected"
+    list-label="name"
+  />
+
+  <DialogRegisterAsset
+    v-model:visible="showRegisterAssetDialog"
     list-label="name"
   />
 </template>
