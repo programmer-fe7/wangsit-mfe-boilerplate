@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/*
+ * TODO: Rename the folder this file's in from 'ExampleModule' to 'AssetModule'.
+ * Also, remove any example files that you don't need.
+ */
 import { computed, shallowRef } from 'vue';
 import { Badge, DataTable } from '@fewangsit/wangsvue';
 import {
@@ -15,6 +19,10 @@ import response from './assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 
 const selectedUser = shallowRef<Asset>();
+/*
+ * FIXME: This ref variable isn't used to edit users, it's used to edit assets,
+ * so the variable name should be changed
+ */
 const showEditUserDialog = shallowRef<boolean>(false);
 
 const singleAction: MenuItem[] = [
