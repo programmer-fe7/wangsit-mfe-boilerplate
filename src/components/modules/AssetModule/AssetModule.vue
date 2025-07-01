@@ -13,9 +13,9 @@ import {
 import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
 import router from '@/router';
-import DialogEditUser from './DialogEditUser/DialogEditUser.vue';
+import DialogEditAsset from './DialogEditAsset/DialogEditAsset.vue';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
-import response from './assetResponse.json';
+import response from '../AssetModule/assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
 
 const selectedUser = shallowRef<Asset>();
@@ -23,7 +23,7 @@ const selectedUser = shallowRef<Asset>();
  * FIXME: This ref variable isn't used to edit users, it's used to edit assets,
  * so the variable name should be changed
  */
-const showEditUserDialog = shallowRef<boolean>(false);
+const showEditAssetDialog = shallowRef<boolean>(false);
 
 const singleAction: MenuItem[] = [
   {
@@ -37,7 +37,7 @@ const singleAction: MenuItem[] = [
     label: 'Edit',
     icon: 'edit',
     command: (): void => {
-      showEditUserDialog.value = true;
+      showEditAssetDialog.value = true;
     },
   },
 ];
@@ -139,8 +139,8 @@ const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
     use-option
     use-paginator
   />
-  <DialogEditUser
-    v-model:visible="showEditUserDialog"
+  <DialogEditAsset
+    v-model:visible="showEditAssetDialog"
     :list="selectedUser ? [selectedUser] : []"
     list-label="name"
   />

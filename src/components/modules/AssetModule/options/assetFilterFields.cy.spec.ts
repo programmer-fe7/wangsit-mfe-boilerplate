@@ -1,5 +1,5 @@
 import { MultiSelectFilterField } from '@fewangsit/wangsvue/components/filtercontainer/FilterContainer.vue';
-import { filterFields, quickFilterFields } from './filterFields';
+import { filterFields, quickFilterFields } from '../../ExampleModule/options/filterFields';
 
 describe('Filter Fields', () => {
   describe('Quick Filter fetchOptionsFns', () => {

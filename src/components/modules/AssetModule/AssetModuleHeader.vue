@@ -7,11 +7,11 @@ import {
   ButtonFilter,
   ButtonSearch,
 } from '@fewangsit/wangsvue';
-import DialogDeleteUser from './DialogDeleteUser/DialogDeleteUser.vue';
+import DialogEditAsset from './DialogEditAsset/DialogEditAsset.vue';
 import { Asset } from '@/types/asset.type';
 
 const dataSelected = shallowRef<Asset[]>([]);
-const showDeleteUserDialog = shallowRef(false);
+const showEditAssetDialog = shallowRef(false);
 
 const bulkAction: MenuItem[] = [
   {
@@ -19,7 +19,7 @@ const bulkAction: MenuItem[] = [
     icon: 'checkbox-blank-circle',
     danger: true,
     command: (): void => {
-      showDeleteUserDialog.value = true;
+      showEditAssetDialog.value = true;
     },
   },
 ];
@@ -37,8 +37,8 @@ const bulkAction: MenuItem[] = [
     <ButtonFilter table-name="asset-list" />
   </div>
 
-  <DialogDeleteUser
-    v-model:visible="showDeleteUserDialog"
+  <DialogEditAsset
+    v-model:visible="showEditAssetDialog"
     :list="dataSelected"
     list-label="name"
   />
