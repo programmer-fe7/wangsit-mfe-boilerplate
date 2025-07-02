@@ -53,8 +53,15 @@ const getAssetData = (): void => {
     <template #title>
       <div class="flex justify-between items-center">
         <div class="text-xl font-semibold">{{ selectedAsset?.name }}</div>
-        <div class="text-sm text-gray-500">
-          Last Modified: 22/10/23 09:20:05 by Rachel
+        <div>
+          <div class="text-sm text-gray-500">Last Modified:</div>
+          <div class="font-normal text-xs">
+            {{
+              selectedAsset?.dateModified +
+              ' by ' +
+              selectedAsset?.lastUserModified
+            }}
+          </div>
         </div>
       </div>
     </template>

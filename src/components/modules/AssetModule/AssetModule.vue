@@ -3,6 +3,7 @@ import { computed, shallowRef } from 'vue';
 import { Badge, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
+  QueryParams,
   TableCellComponent,
   TableColumn,
 } from '@fewangsit/wangsvue/components/datatable/DataTable.vue.d';
@@ -82,7 +83,7 @@ const tableColumns = computed<TableColumn[]>(() => {
           component: Badge,
           props: {
             label: data.brand,
-            severity: 'secondary',
+            severity: 'dark',
           },
         };
       },
@@ -96,7 +97,7 @@ const tableColumns = computed<TableColumn[]>(() => {
           component: Badge,
           props: {
             label: data.model,
-            severity: 'danger',
+            severity: 'dark',
           },
         };
       },
@@ -110,11 +111,25 @@ const tableColumns = computed<TableColumn[]>(() => {
   ];
 });
 
-const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
+const getTableData = async (
+  params: QueryParams,
+): Promise<FetchResponse<Asset> | undefined> => {
   try {
-    const data = response;
+    const { page, limit } = params;
 
-    return data;
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+
+    const { data } = response.data;
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    return {
+      message: '',
+      data: {
+        data: paginatedData,
+        totalRecords: response.data.totalRecords,
+      },
+    };
   } catch (error) {
     console.error(error);
   }
@@ -129,9 +144,11 @@ const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
     :columns="tableColumns"
     :fetch-function="getTableData"
     :options="singleAction"
+    :rows="10"
     @toggle-option="selectedAsset = $event"
     data-key="_id"
     lazy
+    scroll-height="400px"
     table-name="asset-list"
     use-option
     use-paginator

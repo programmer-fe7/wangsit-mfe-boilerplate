@@ -10,4 +10,6 @@ export interface Asset {
   brand: string;
   model: string;
   aliasName: string;
+  dateModified: string;
+  lastUserModified: string;
 }

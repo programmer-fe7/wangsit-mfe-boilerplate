@@ -29,6 +29,7 @@ const mode = computed<string>(() => {
     :buttons-template="['submit', 'cancel', 'clear']"
     :closable="false"
     :header="mode + ' Asset'"
+    :show-stay-checkbox="mode === 'Register'"
     @show="console.log(selectedAsset)"
     @submit="
       toast.add({
@@ -137,6 +138,7 @@ const mode = computed<string>(() => {
       </div>
       <ImageCompressor
         :custom-requirements="['Max. 1 MB', 'Must be image format']"
+        :image-preview-url="selectedAsset?.profilePictureBig"
         confirm-on-delete
         label="Foto"
         mandatory
