@@ -14,6 +14,10 @@ onMounted(() => {
 
 const selectedAsset = shallowRef<Asset>();
 
+/*
+ * FIXME: All computed values should have types
+ * Reference: Coding style guide chapter 6.3.4
+ */
 const contentData = computed(() => [
   [
     {
