@@ -6,7 +6,7 @@ import router from '@/router';
 
 const { breadcrumbs } = useBreadcrumbStore();
 
-const currentRoute = computed(() => {
+const currentRoute = computed<string>(() => {
   switch (router.currentRoute.value.name) {
     case 'AssetListView':
       return 'Asset List';

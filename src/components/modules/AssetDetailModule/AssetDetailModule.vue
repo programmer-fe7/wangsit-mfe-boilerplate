@@ -14,32 +14,30 @@ onMounted(() => {
 
 const selectedAsset = shallowRef<Asset>();
 
-/*
- * FIXME: All computed values should have types
- * Reference: Coding style guide chapter 6.3.4
- */
-const contentData = computed(() => [
-  [
-    {
-      key: 'Brand',
-      value: selectedAsset.value?.brand,
-    },
-    {
-      key: 'Category',
-      value: selectedAsset.value?.category,
-    },
+const contentData = computed<{ key: string; value: string | undefined }[][]>(
+  () => [
+    [
+      {
+        key: 'Brand',
+        value: selectedAsset.value?.brand,
+      },
+      {
+        key: 'Category',
+        value: selectedAsset.value?.category,
+      },
+    ],
+    [
+      {
+        key: 'Model',
+        value: selectedAsset.value?.model,
+      },
+      {
+        key: 'Group',
+        value: selectedAsset.value?.group,
+      },
+    ],
   ],
-  [
-    {
-      key: 'Model',
-      value: selectedAsset.value?.model,
-    },
-    {
-      key: 'Group',
-      value: selectedAsset.value?.group,
-    },
-  ],
-]);
+);
 
 const getAssetData = (): void => {
   const currentAsset = response.data.data.find(

@@ -82,6 +82,7 @@ const tableColumns = computed<TableColumn[]>(() => {
           component: Badge,
           props: {
             label: data.brand,
+            severity: 'secondary',
           },
         };
       },
@@ -95,6 +96,7 @@ const tableColumns = computed<TableColumn[]>(() => {
           component: Badge,
           props: {
             label: data.model,
+            severity: 'danger',
           },
         };
       },

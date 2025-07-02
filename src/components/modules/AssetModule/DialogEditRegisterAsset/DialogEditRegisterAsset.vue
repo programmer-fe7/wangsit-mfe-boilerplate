@@ -17,7 +17,7 @@ const visible = defineModel<boolean>('visible', { default: false });
 
 const toast = useToast();
 
-const mode = computed(() => {
+const mode = computed<string>(() => {
   return props.selectedAsset ? 'Edit' : 'Register';
 });
 </script>

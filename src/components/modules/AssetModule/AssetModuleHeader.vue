@@ -54,16 +54,10 @@ const changeRegisterAssetDialogVisibilityState = (): void => {
     />
   </div>
 
-  <!--
-    FIXME: There are no props to bind here, so v-bind should be removed.
-    
-    Emitting data-table:update should include the table name.
-  -->
   <DialogConfirm
-    v-bind="$props"
     v-model:visible="showDeleteAssetDialog"
     :list="dataSelected"
-    @confirm="eventBus.emit('data-table:update', {})"
+    @confirm="eventBus.emit('data-table:update', { tableName: 'asset-list' })"
     actionable
     confirm-label="Yakin"
     header="Delete Asset"
