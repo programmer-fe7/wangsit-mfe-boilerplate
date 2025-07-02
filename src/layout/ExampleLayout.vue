@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// TODO: You should create a new layout, and adjust it according to the Figma design
 import { ref } from 'vue';
 import { useBreadcrumbStore } from '@/store';
 import { Breadcrumb, Card, TabMenu } from '@fewangsit/wangsvue';

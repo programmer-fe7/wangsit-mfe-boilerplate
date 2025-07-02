@@ -7,15 +7,15 @@ import {
   ButtonFilter,
   ButtonSearch,
   Button,
+  DialogConfirm,
+  eventBus,
 } from '@fewangsit/wangsvue';
-import DialogDeleteAsset from './DialogDeleteAsset/DialogDeleteAsset.vue';
-import DialogRegisterAsset from './DialogRegisterAsset/DialogRegisterAsset.vue';
+import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
 import { Asset } from '@/types/asset.type';
 
 const dataSelected = shallowRef<Asset[]>([]);
-// FIXME: All shallowRefs must have a type, so this one is <boolean>
-const showDeleteAssetDialog = shallowRef(false);
-const showRegisterAssetDialog = shallowRef(false);
+const showDeleteAssetDialog = shallowRef<boolean>(false);
+const showRegisterAssetDialog = shallowRef<boolean>(false);
 
 const bulkAction: MenuItem[] = [
   {
@@ -54,14 +54,22 @@ const changeRegisterAssetDialogVisibilityState = (): void => {
     />
   </div>
 
-  <DialogDeleteAsset
+  <DialogConfirm
+    v-bind="$props"
     v-model:visible="showDeleteAssetDialog"
     :list="dataSelected"
+    @confirm="eventBus.emit('data-table:update', {})"
+    actionable
+    confirm-label="Yakin"
+    header="Delete Asset"
+    header-icon="delete-bin-7"
     list-label="name"
+    severity="danger"
   />
 
-  <DialogRegisterAsset
+  <DialogEditRegisterAsset
     v-model:visible="showRegisterAssetDialog"
+    :selected-asset="undefined"
     list-label="name"
   />
 </template>

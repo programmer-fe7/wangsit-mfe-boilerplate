@@ -9,7 +9,7 @@ import {
 import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
 import router from '@/router';
-import DialogEditAsset from './DialogEditAsset/DialogEditAsset.vue';
+import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
 import response from '../AssetModule/assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
@@ -135,7 +135,7 @@ const getTableData = async (): Promise<FetchResponse<Asset> | undefined> => {
     use-paginator
   />
 
-  <DialogEditAsset
+  <DialogEditRegisterAsset
     v-model:visible="showEditAssetDialog"
     :list="selectedAsset ? [selectedAsset] : []"
     :selected-asset="selectedAsset"

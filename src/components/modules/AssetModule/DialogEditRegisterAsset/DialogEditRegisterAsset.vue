@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// FIXME: The create and edit dialog should be in the same file, to minimize duplication
+import { Asset } from '@/types/asset.type';
 import {
   DialogForm,
   Dropdown,
@@ -7,27 +7,19 @@ import {
   InputText,
   useToast,
 } from '@fewangsit/wangsvue';
-import { OptionValue } from '@fewangsit/wangsvue/components/dropdown/Dropdown.vue';
-import { Nullable } from '@fewangsit/wangsvue/components/ts-helpers';
-import { shallowRef } from 'vue';
+import { computed } from 'vue';
+
+const props = defineProps<{
+  selectedAsset: Asset | undefined;
+}>();
 
 const visible = defineModel<boolean>('visible', { default: false });
 
-const registerToast = useToast();
+const toast = useToast();
 
-const groupsDropdownValue = shallowRef<OptionValue>();
-const categoriesDropdownValue = shallowRef<OptionValue>();
-const nameDropdownValue = shallowRef<OptionValue>();
-const brandsDropdownValue = shallowRef<OptionValue>();
-const modelsDropdownValue = shallowRef<OptionValue>();
-const aliasNameInputTextValue = shallowRef<Nullable<string>>();
-
-const openToast = (message: string, error?: boolean): void => {
-  registerToast.add({
-    message,
-    error,
-  });
-};
+const mode = computed(() => {
+  return props.selectedAsset ? 'Edit' : 'Register';
+});
 </script>
 
 <template>
@@ -36,21 +28,27 @@ const openToast = (message: string, error?: boolean): void => {
     :aside-right-width="600"
     :buttons-template="['submit', 'cancel', 'clear']"
     :closable="false"
-    @submit="openToast('Success, asset has been registered.')"
-    header="Register Asset"
+    :header="mode + ' Asset'"
+    @show="console.log(selectedAsset)"
+    @submit="
+      toast.add({
+        message: 'Success, asset has been ' + mode.toLowerCase() + 'ed.',
+      })
+    "
     severity="success"
-    show-stay-checkbox
     width="medium"
   >
     <template #fields>
       <div class="grid grid-rows-3 gap-4">
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
-            v-model="groupsDropdownValue"
+            :initial-value="props.selectedAsset?.group"
             :options="[
               { label: 'Room 402', value: 'Room 402' },
               { label: 'Warehouse', value: 'Warehouse' },
               { label: 'Garage', value: 'Garage' },
+              { label: 'Room 301', value: 'Room 301' },
+              { label: 'Meeting Room', value: 'Meeting Room' },
             ]"
             field-name="groups"
             label="Group"
@@ -60,11 +58,14 @@ const openToast = (message: string, error?: boolean): void => {
             use-validator
           />
           <Dropdown
-            v-model="categoriesDropdownValue"
+            :initial-value="props.selectedAsset?.category"
             :options="[
               { label: 'Elektronik', value: 'Elektronik' },
               { label: 'Transportasi', value: 'Transportasi' },
               { label: 'Sanitasi', value: 'Sanitasi' },
+              { label: 'Furniture', value: 'Furniture' },
+              { label: 'AC', value: 'AC' },
+              { label: 'Audio', value: 'Audio' },
             ]"
             field-name="categories"
             label="Category"
@@ -76,7 +77,7 @@ const openToast = (message: string, error?: boolean): void => {
         </div>
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
-            v-model="nameDropdownValue"
+            :initial-value="props.selectedAsset?.name"
             :options="[
               { label: 'Name 1', value: 'Name 1' },
               { label: 'Name 2', value: 'Name 2' },
@@ -90,9 +91,7 @@ const openToast = (message: string, error?: boolean): void => {
             use-validator
           />
           <InputText
-            v-model="aliasNameInputTextValue"
-            :mandatory="false"
-            :max-length="30"
+            :value="props.selectedAsset?.aliasName"
             field-info="You can input an alias name for convenience in searching for assets and to differentiate them from others.`"
             field-name="aliasName"
             label="Alias Name"
@@ -101,11 +100,14 @@ const openToast = (message: string, error?: boolean): void => {
         </div>
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
-            v-model="brandsDropdownValue"
+            :initial-value="props.selectedAsset?.brand"
             :options="[
               { label: 'Samsung', value: 'Samsung' },
               { label: 'Hyundai', value: 'Hyundai' },
               { label: 'Apple', value: 'Apple' },
+              { label: 'Futura', value: 'Futura' },
+              { label: 'LG', value: 'LG' },
+              { label: 'JBL', value: 'JBL' },
             ]"
             field-name="brands"
             label="Brand"
@@ -115,11 +117,14 @@ const openToast = (message: string, error?: boolean): void => {
             use-validator
           />
           <Dropdown
-            v-model="modelsDropdownValue"
+            :initial-value="props.selectedAsset?.model"
             :options="[
               { label: 'Macbook Pro', value: 'Macbook Pro' },
               { label: 'Asus', value: 'Asus' },
               { label: 'Ultra 24', value: 'Ultra 24' },
+              { label: '4627', value: '4627' },
+              { label: 'Hercules', value: 'Hercules' },
+              { label: 'JBL', value: 'JBL' },
             ]"
             field-name="models"
             label="Model/Type"
@@ -140,6 +145,4 @@ const openToast = (message: string, error?: boolean): void => {
       />
     </template>
   </DialogForm>
-
-  <Toast />
 </template>
