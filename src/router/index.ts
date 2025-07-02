@@ -4,7 +4,9 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
+    // TODO: You should use a new layout (see the comment in ExampleLayout.vue)
     component: (): Promise<Component> => import('@/layout/ExampleLayout.vue'),
+    // FIXME: Redirect to the asset page instead
     redirect: '/home',
     children: [
       {
@@ -12,6 +14,7 @@ const routes: Readonly<RouteRecordRaw[]> = [
         name: 'ExampleView',
         component: (): Promise<Component> => import('@/views/ExampleView.vue'),
       },
+      // FIXME: The path should be more descriptive of its content
       {
         path: 'another-page',
         name: 'AssetListView',

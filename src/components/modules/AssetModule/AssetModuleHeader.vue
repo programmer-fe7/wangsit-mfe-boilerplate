@@ -13,6 +13,7 @@ import DialogRegisterAsset from './DialogRegisterAsset/DialogRegisterAsset.vue';
 import { Asset } from '@/types/asset.type';
 
 const dataSelected = shallowRef<Asset[]>([]);
+// FIXME: All shallowRefs must have a type, so this one is <boolean>
 const showDeleteAssetDialog = shallowRef(false);
 const showRegisterAssetDialog = shallowRef(false);
 

@@ -10,6 +10,13 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
+  /*
+   * FIXME: You only need a single shallowRef for this (for examlpe selectedAsset),
+   * and you can use it to access the asset data (for example selectedAsset.value.name).
+   *
+   * Then, inside the getAssetData function, you can just assign the result
+   * to the variable, so selectedAsset.value = response.data...
+   */
   const asset = getAssetData();
 
   if (asset) {
@@ -52,6 +59,7 @@ const getAssetData = (): Asset | undefined => {
       </div>
     </template>
 
+    <!-- FIXME: The code below is too repetitive, you should use looping (v-for) -->
     <template #content>
       <div class="flex justify-start gap-4">
         <div>

@@ -16,6 +16,7 @@ const props = defineProps<{
 
 const visible = defineModel<boolean>('visible', { default: false });
 
+// FIXME: The toast constant should be named 'toast', so it's used as such: 'toast.add(...)'
 const editToast = useToast();
 
 const groupsDropdownValue = shallowRef<OptionValue>();
@@ -25,6 +26,7 @@ const brandsDropdownValue = shallowRef<OptionValue>();
 const modelsDropdownValue = shallowRef<OptionValue>();
 const aliasNameInputTextValue = shallowRef<string>();
 
+// FIXME: You shouldn't make a new function, just use 'toast.add' every time a toast should be shown
 const openToast = (message: string, error?: boolean): void => {
   editToast.add({
     message,
@@ -57,6 +59,21 @@ const showForm = (): void => {
     <template #fields>
       <div class="grid grid-rows-3 gap-4">
         <div class="grid grid-cols-2 gap-4">
+          <!--
+            FIXME: Rather than groupsDropdownValue being the initial value,
+            it should be props.selectedAsset?.group instead, the same applies
+            to all of the other dropdowns.
+
+            Additionally, you should remove all of the shallowRefs
+            (groupsDropdownValue, etc) and v-models. If you notice, they're all
+            only used to initialize the form, and nothing else. This can already
+            be done with the prop, no need for any variables.
+
+            v-models are mostly used when there's something that needs to be
+            shown conditionally. For example, when a form section should only
+            be shown when the user has selected a certain option from the
+            dropdown.
+          -->
           <Dropdown
             v-model="groupsDropdownValue"
             :initial-value="groupsDropdownValue"
@@ -109,6 +126,10 @@ const showForm = (): void => {
             option-value="value"
             use-validator
           />
+          <!--
+            FIXME: The default max length is already 30 chars, so no need to
+            specify it again. mandatory="false" is also not needed
+          -->
           <InputText
             v-model="aliasNameInputTextValue"
             :mandatory="false"

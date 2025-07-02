@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/*
+ * FIXME: This component is way too simple to justify a separate file,
+ * just move the code into the parent file
+ */
 import { DialogConfirm, eventBus } from '@fewangsit/wangsvue';
 import { DialogConfirmProps } from '@fewangsit/wangsvue/components/dialogconfirm/DialogConfirm.vue.d';
 

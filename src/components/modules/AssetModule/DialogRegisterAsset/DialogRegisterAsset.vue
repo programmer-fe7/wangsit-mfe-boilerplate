@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// FIXME: The create and edit dialog should be in the same file, to minimize duplication
 import {
   DialogForm,
   Dropdown,

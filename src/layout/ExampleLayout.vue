@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: You should create a new layout, and adjust it according to the Figma design
 import { ref } from 'vue';
 import { useBreadcrumbStore } from '@/store';
 import { Breadcrumb, Card, TabMenu } from '@fewangsit/wangsvue';
@@ -22,6 +23,7 @@ const tabMenus = ref<MenuItem[]>([
   <Breadcrumb :menus="breadcrumbs" />
   <Card>
     <template #content>
+      <!-- The warning below can be ignored, it's a bug with the component -->
       <TabMenu :menu="tabMenus" />
       <router-view />
     </template>
