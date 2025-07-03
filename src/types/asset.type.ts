@@ -1,15 +1,14 @@
 export interface Asset {
   _id: string;
-  key: number;
-  profilePictureBig?: string;
-  profilePictureMedium?: string;
-  profilePictureSmall?: string;
-  name: string;
-  group: string;
   category: string;
   brand: string;
   model: string;
+  group: string;
+  name: string;
   aliasName: string;
-  dateModified: string;
-  lastUserModified: string;
+  assetImage?: string;
+  assetNumber: number;
+  userFirstName: string;
+  createdAt: string;
+  updatedAt: string;
 }

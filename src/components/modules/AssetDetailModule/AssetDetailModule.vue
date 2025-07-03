@@ -56,11 +56,7 @@ const getAssetData = (): void => {
         <div>
           <div class="text-sm text-gray-500">Last Modified:</div>
           <div class="font-normal text-xs">
-            {{
-              selectedAsset?.dateModified +
-              ' by ' +
-              selectedAsset?.lastUserModified
-            }}
+            {{ selectedAsset?.createdAt + ' by ' + selectedAsset?.updatedAt }}
           </div>
         </div>
       </div>
@@ -69,11 +65,7 @@ const getAssetData = (): void => {
     <template #content>
       <div class="flex justify-start gap-4">
         <div>
-          <Image
-            :preview="false"
-            :src="selectedAsset?.profilePictureBig"
-            size="big"
-          />
+          <Image :preview="false" :src="selectedAsset?.assetImage" size="big" />
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="col-span-2 font-bold text-base">General Information</div>
