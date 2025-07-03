@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
-import { Badge, DataTable } from '@fewangsit/wangsvue';
 import {
   FetchResponse,
   QueryParams,
   TableCellComponent,
   TableColumn,
 } from '@fewangsit/wangsvue/components/datatable/DataTable.vue.d';
+
+import { computed, shallowRef } from 'vue';
+import { Badge, DataTable } from '@fewangsit/wangsvue';
 import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
+import { GetAssetListResponseBody } from '@/types/assetService.type';
+
 import router from '@/router';
 import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
 import AssetModuleTableFilter from './AssetModuleTableFilter.vue';
-import response from '../AssetModule/assetResponse.json';
 import AssetModuleHeader from './AssetModuleHeader.vue';
-
-const selectedAsset = shallowRef<Asset>();
-const showEditAssetDialog = shallowRef<boolean>(false);
+import AssetServices from '@/components/services/asset.service';
 
 const singleAction: MenuItem[] = [
   {
@@ -33,10 +33,14 @@ const singleAction: MenuItem[] = [
     label: 'Edit',
     icon: 'edit',
     command: (): void => {
-      showEditAssetDialog.value = true;
+      canShowEditAssetDialog.value = true;
     },
   },
 ];
+
+const assetList = shallowRef<GetAssetListResponseBody['data'] | null>(null);
+const selectedAsset = shallowRef<Asset>();
+const canShowEditAssetDialog = shallowRef<boolean>(false);
 
 const tableColumns = computed<TableColumn[]>(() => {
   return [
@@ -113,25 +117,15 @@ const tableColumns = computed<TableColumn[]>(() => {
 
 const getTableData = async (
   params: QueryParams,
-): Promise<FetchResponse<Asset> | undefined> => {
+): Promise<FetchResponse<Asset>> => {
   try {
-    const { page, limit } = params;
+    const { data } = await AssetServices.getAssetList(params);
 
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-
-    const { data } = response.data;
-    const paginatedData = data.slice(startIndex, endIndex);
-
-    return {
-      message: '',
-      data: {
-        data: paginatedData,
-        totalRecords: response.data.totalRecords,
-      },
-    };
+    assetList.value = data.data.data;
+    return data;
   } catch (error) {
-    console.error(error);
+    console.error('Error while fetching detail:', error);
+    return Promise.reject(error);
   }
 };
 </script>
@@ -155,7 +149,7 @@ const getTableData = async (
   />
 
   <DialogEditRegisterAsset
-    v-model:visible="showEditAssetDialog"
+    v-model:visible="canShowEditAssetDialog"
     :list="selectedAsset ? [selectedAsset] : []"
     :selected-asset="selectedAsset"
     list-label="name"

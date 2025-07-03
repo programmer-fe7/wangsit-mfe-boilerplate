@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue';
-import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import {
   ButtonBulkAction,
   ButtonDownload,
@@ -10,12 +8,13 @@ import {
   DialogConfirm,
   eventBus,
 } from '@fewangsit/wangsvue';
-import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
+
+import { shallowRef } from 'vue';
+import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
 
-const dataSelected = shallowRef<Asset[]>([]);
-const showDeleteAssetDialog = shallowRef<boolean>(false);
-const showRegisterAssetDialog = shallowRef<boolean>(false);
+import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
+import AssetServices from '@/components/services/asset.service';
 
 const bulkAction: MenuItem[] = [
   {
@@ -23,20 +22,35 @@ const bulkAction: MenuItem[] = [
     icon: 'checkbox-blank-circle',
     danger: false,
     command: (): void => {
-      showDeleteAssetDialog.value = true;
+      canShowDeleteAssetDialog.value = true;
     },
   },
 ];
 
+const assetSelected = shallowRef<Asset[]>([]);
+const canShowDeleteAssetDialog = shallowRef<boolean>(false);
+const canShowRegisterAssetDialog = shallowRef<boolean>(false);
+
 const changeRegisterAssetDialogVisibilityState = (): void => {
-  showRegisterAssetDialog.value = !showRegisterAssetDialog.value;
+  canShowRegisterAssetDialog.value = !canShowRegisterAssetDialog.value;
+};
+
+const confirmDeletion = async (): Promise<void> => {
+  try {
+    for (const asset of assetSelected.value) {
+      await AssetServices.deleteAsset({ _id: asset._id });
+    }
+    eventBus.emit('data-table:update', { tableName: 'asset-list' });
+  } catch (error) {
+    console.error('Error while deleting asset:', error);
+  }
 };
 </script>
 
 <template>
   <div class="flex justify-end gap-4" data-wv-section="tabletoolbars">
     <ButtonBulkAction
-      v-model:selected-data="dataSelected"
+      v-model:selected-data="assetSelected"
       :options="bulkAction"
       table-name="asset-list"
     />
@@ -55,9 +69,9 @@ const changeRegisterAssetDialogVisibilityState = (): void => {
   </div>
 
   <DialogConfirm
-    v-model:visible="showDeleteAssetDialog"
-    :list="dataSelected"
-    @confirm="eventBus.emit('data-table:update', { tableName: 'asset-list' })"
+    v-model:visible="canShowDeleteAssetDialog"
+    :list="assetSelected"
+    @confirm="confirmDeletion"
     actionable
     confirm-label="Yakin"
     header="Delete Asset"
@@ -67,7 +81,7 @@ const changeRegisterAssetDialogVisibilityState = (): void => {
   />
 
   <DialogEditRegisterAsset
-    v-model:visible="showRegisterAssetDialog"
+    v-model:visible="canShowRegisterAssetDialog"
     :selected-asset="undefined"
     list-label="name"
   />

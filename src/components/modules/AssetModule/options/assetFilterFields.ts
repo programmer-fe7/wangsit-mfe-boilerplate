@@ -1,6 +1,8 @@
 import { Option } from '@fewangsit/wangsvue/components/dropdown/Dropdown.vue';
 import { FilterField } from '@fewangsit/wangsvue/components/filtercontainer/FilterContainer.vue.d';
 
+import AssetServices from '@/components/services/asset.service';
+
 export const quickFilterFields: FilterField[] = [
   {
     label: 'Asset',
@@ -9,11 +11,12 @@ export const quickFilterFields: FilterField[] = [
     placeholder: 'Select asset name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [
-          { label: 'Sound System' },
-          { label: 'AC Portable Indoor' },
-          { label: 'Microphone' },
-        ];
+        const { data } = await AssetServices.getAssetOptions({
+          nameOptions: true,
+        });
+
+        const { nameOptions } = data.data;
+        return nameOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -22,12 +25,17 @@ export const quickFilterFields: FilterField[] = [
   },
   {
     label: 'Group',
-    field: 'groups',
+    field: 'group',
     type: 'multiselect',
     placeholder: 'Select group',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Room' }, { label: 'Warehouse' }, { label: 'Garage' }];
+        const { data } = await AssetServices.getAssetOptions({
+          groupOptions: true,
+        });
+
+        const { groupOptions } = data.data;
+        return groupOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -36,12 +44,17 @@ export const quickFilterFields: FilterField[] = [
   },
   {
     label: 'Brand',
-    field: 'brands',
+    field: 'brand',
     type: 'multiselect',
     placeholder: 'Select brand name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Samsung' }, { label: 'Hyundai' }, { label: 'Apple' }];
+        const { data } = await AssetServices.getAssetOptions({
+          brandOptions: true,
+        });
+
+        const { brandOptions } = data.data;
+        return brandOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -50,16 +63,17 @@ export const quickFilterFields: FilterField[] = [
   },
   {
     label: 'Model/Type',
-    field: 'models',
+    field: 'model',
     type: 'multiselect',
     placeholder: 'Select model name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [
-          { label: 'Macbook Pro', value: 'Macbook Pro' },
-          { label: 'Ionic 5', value: 'Ionic 5' },
-          { label: 'Ultra 24', value: 'Ultra 24' },
-        ];
+        const { data } = await AssetServices.getAssetOptions({
+          modelOptions: true,
+        });
+
+        const { modelOptions } = data.data;
+        return modelOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -76,11 +90,12 @@ export const filterFields: FilterField[] = [
     placeholder: 'Select asset name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [
-          { label: 'Sound System' },
-          { label: 'AC Portable Indoor' },
-          { label: 'Microphone' },
-        ];
+        const { data } = await AssetServices.getAssetOptions({
+          nameOptions: true,
+        });
+
+        const { nameOptions } = data.data;
+        return nameOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -89,12 +104,17 @@ export const filterFields: FilterField[] = [
   },
   {
     label: 'Group',
-    field: 'groups',
+    field: 'group',
     type: 'multiselect',
     placeholder: 'Select group',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Room' }, { label: 'Warehouse' }, { label: 'Garage' }];
+        const { data } = await AssetServices.getAssetOptions({
+          groupOptions: true,
+        });
+
+        const { groupOptions } = data.data;
+        return groupOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -103,12 +123,17 @@ export const filterFields: FilterField[] = [
   },
   {
     label: 'Brand',
-    field: 'brands',
+    field: 'brand',
     type: 'multiselect',
     placeholder: 'Select brand name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [{ label: 'Samsung' }, { label: 'Hyundai' }, { label: 'Apple' }];
+        const { data } = await AssetServices.getAssetOptions({
+          brandOptions: true,
+        });
+
+        const { brandOptions } = data.data;
+        return brandOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -117,16 +142,17 @@ export const filterFields: FilterField[] = [
   },
   {
     label: 'Model/Type',
-    field: 'models',
+    field: 'model',
     type: 'multiselect',
     placeholder: 'Select model name',
     fetchOptionFn: async (): Promise<Option[]> => {
       try {
-        return [
-          { label: 'Macbook Pro' },
-          { label: 'Ionic 5' },
-          { label: 'Ultra 24' },
-        ];
+        const { data } = await AssetServices.getAssetOptions({
+          modelOptions: true,
+        });
+
+        const { modelOptions } = data.data;
+        return modelOptions;
       } catch (error) {
         console.error(error);
         return [];

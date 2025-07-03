@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useBreadcrumbStore } from '@/store';
 import { Breadcrumb, Card } from '@fewangsit/wangsvue';
+
 import router from '@/router';
 
 const { breadcrumbs } = useBreadcrumbStore();

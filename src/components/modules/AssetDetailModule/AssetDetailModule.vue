@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { Card, Image } from '@fewangsit/wangsvue';
 import { computed, onMounted, shallowRef } from 'vue';
-import response from '../AssetModule/assetResponse.json';
-import { Asset } from '@/types/asset.type';
+import { QueryParams } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
+import { GetAssetDetailResponseBody } from '@/types/assetService.type';
+
+import AssetServices from '@/components/services/asset.service';
 
 const props = defineProps<{
-  selectedAssetId: string | number;
+  selectedAssetId: string;
 }>();
 
 onMounted(() => {
-  getAssetData();
+  getAssetData({ _id: props.selectedAssetId });
 });
 
-const selectedAsset = shallowRef<Asset>();
+const selectedAsset = shallowRef<GetAssetDetailResponseBody['data'] | null>(
+  null,
+);
 
 const contentData = computed<{ key: string; value: string | undefined }[][]>(
   () => [
@@ -39,12 +43,15 @@ const contentData = computed<{ key: string; value: string | undefined }[][]>(
   ],
 );
 
-const getAssetData = (): void => {
-  const currentAsset = response.data.data.find(
-    (asset) => asset._id === props.selectedAssetId,
-  );
+const getAssetData = async (params: QueryParams): Promise<void> => {
+  try {
+    const { data } = await AssetServices.getAsset(params);
 
-  selectedAsset.value = currentAsset;
+    selectedAsset.value = data.data;
+  } catch (error) {
+    console.error('Error while fetching detail:', error);
+    return Promise.reject(error);
+  }
 };
 </script>
 
@@ -56,7 +63,9 @@ const getAssetData = (): void => {
         <div>
           <div class="text-sm text-gray-500">Last Modified:</div>
           <div class="font-normal text-xs">
-            {{ selectedAsset?.createdAt + ' by ' + selectedAsset?.updatedAt }}
+            {{
+              `${selectedAsset?.updatedAt} by ${selectedAsset?.userFirstName}`
+            }}
           </div>
         </div>
       </div>
