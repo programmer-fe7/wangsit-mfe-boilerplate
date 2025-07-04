@@ -38,6 +38,7 @@ const singleAction: MenuItem[] = [
   },
 ];
 
+// FIXME: assetList isn't used for anything, delete it
 const assetList = shallowRef<GetAssetListResponseBody['data'] | null>(null);
 const selectedAsset = shallowRef<Asset>();
 const canShowEditAssetDialog = shallowRef<boolean>(false);

@@ -28,6 +28,11 @@ const bulkAction: MenuItem[] = [
 ];
 
 const assetSelected = shallowRef<Asset[]>([]);
+/*
+ * FIXME: The variable names below are a bit too long, I'd change it to
+ * `showDeleteDialog` and `showRegisterDialog`. This is inside the Asset module,
+ * so it's already obvious that these are dialogs that do something with assets.
+ */
 const canShowDeleteAssetDialog = shallowRef<boolean>(false);
 const canShowRegisterAssetDialog = shallowRef<boolean>(false);
 
@@ -57,6 +62,10 @@ const confirmDeletion = async (): Promise<void> => {
     <ButtonSearch class="ml-auto" table-name="asset-list" />
     <ButtonDownload file-name="Download" table-name="asset-list" />
     <ButtonFilter table-name="asset-list" />
+    <!--
+      TODO: The button below will always show the dialog, so just change it to
+      `canShowRegisterAssetDialog = true`. No need for a new function.
+    -->
     <Button
       :outlined="false"
       @click="changeRegisterAssetDialogVisibilityState"

@@ -37,6 +37,11 @@ const toast = useToast();
 const hasNameValue = shallowRef<boolean>(true);
 const hasBrandValue = shallowRef<boolean>(true);
 const canStayOnDialog = shallowRef<boolean>(false);
+/*
+ * FIXME: The initial value shouldn't be an empty string, just put nothing in the parentheses.
+ * That will cause the ref's initial value to be undefined.
+ * But as you'll see in another comment down below, this ref should actually be deleted.
+ */
 const groupDropdownValue = shallowRef<FormValue>('');
 const dropdownOptions = shallowRef<AssetOption>({
   nameOptions: [],
@@ -50,11 +55,16 @@ const mode = computed<string>(() => {
   return props.selectedAsset ? 'Edit' : 'Register';
 });
 
+// FIXME: Delete this function, you'll see why down below
 const resetDropdownDisabled = (): void => {
   hasNameValue.value = true;
   hasBrandValue.value = true;
 };
 
+/*
+ * FIXME: The two functions below are too simple, you should just include them in the parent function.
+ * And a reminder, all API functions should be wrapped in try-
+ */
 const registerNewAsset = async (body: RegEditAssetBody): Promise<void> => {
   await AssetServices.postRegisterAsset(body);
 };
@@ -96,6 +106,15 @@ const submitForm = (payload: DialogFormPayload): void => {
   canStayOnDialog.value = stayAfterSubmit;
   groupDropdownValue.value = formValues.group;
 
+  /*
+   * FIXME: The formValues don't need to be converted to string, and they don't need
+   * to be put into a new object. You can just pass the formValues directly to the API,
+   * and add type casting: registerNewAsset(formValues as RegEditAssetBody)
+   *
+   * I assume you tried to convert them to string because it still has the DialogFormValue
+   * type? If so, should've used type casting instead Let's say `const value` has
+   * the type DialogFormValue, you can do `const newValue: string = value as string`.
+   */
   const assetBody: RegEditAssetBody = {
     name: formValues.name.toString(),
     group: formValues.group.toString(),
@@ -133,6 +152,10 @@ const submitForm = (payload: DialogFormPayload): void => {
 </script>
 
 <template>
+  <!--
+    FIXME: This form will close after you click submit, whether the API succeeds or fails.
+    Use DialogForm's closeOnSubmit prop to prevent this.
+  -->
   <DialogForm
     v-model:visible="isVisible"
     :aside-right-width="600"
@@ -149,6 +172,12 @@ const submitForm = (payload: DialogFormPayload): void => {
     <template #fields>
       <div class="grid grid-rows-3 gap-4">
         <div class="grid grid-cols-2 gap-4">
+          <!--
+            FIXME: I think you made groupDropdownValue with the purpose of
+            not resetting the form after submitting it? If so, there's already
+            a prop for it in DialogForm, called resetAfterSubmit. So you can
+            just delete groupDropdownValue and canStayOnDialog.
+          -->
           <Dropdown
             :initial-value="
               canStayOnDialog ? groupDropdownValue : props.selectedAsset?.group
@@ -193,6 +222,12 @@ const submitForm = (payload: DialogFormPayload): void => {
           />
         </div>
         <div class="grid grid-cols-2 gap-4">
+          <!--
+            FIXME: This update:model-value won't work. Let's say the user chooses a brand,
+            then they choose another brand, hasBrandValue will be false again.
+            Don't use the update:model-value event, just use v-model instead.
+            Delete hasNameValue and hasBrandValue.
+          -->
           <Dropdown
             :disabled="mode === 'Register' ? hasNameValue : false"
             :initial-value="props.selectedAsset?.brand"
