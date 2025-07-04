@@ -22,22 +22,17 @@ const bulkAction: MenuItem[] = [
     icon: 'checkbox-blank-circle',
     danger: false,
     command: (): void => {
-      canShowDeleteAssetDialog.value = true;
+      showDeleteDialog.value = true;
     },
   },
 ];
 
 const assetSelected = shallowRef<Asset[]>([]);
-/*
- * FIXME: The variable names below are a bit too long, I'd change it to
- * `showDeleteDialog` and `showRegisterDialog`. This is inside the Asset module,
- * so it's already obvious that these are dialogs that do something with assets.
- */
-const canShowDeleteAssetDialog = shallowRef<boolean>(false);
-const canShowRegisterAssetDialog = shallowRef<boolean>(false);
+const showDeleteDialog = shallowRef<boolean>(false);
+const showRegisterDialog = shallowRef<boolean>(false);
 
 const changeRegisterAssetDialogVisibilityState = (): void => {
-  canShowRegisterAssetDialog.value = !canShowRegisterAssetDialog.value;
+  showRegisterDialog.value = !showRegisterDialog.value;
 };
 
 const confirmDeletion = async (): Promise<void> => {
@@ -78,7 +73,7 @@ const confirmDeletion = async (): Promise<void> => {
   </div>
 
   <DialogConfirm
-    v-model:visible="canShowDeleteAssetDialog"
+    v-model:visible="showDeleteDialog"
     :list="assetSelected"
     @confirm="confirmDeletion"
     actionable
@@ -90,7 +85,7 @@ const confirmDeletion = async (): Promise<void> => {
   />
 
   <DialogEditRegisterAsset
-    v-model:visible="canShowRegisterAssetDialog"
+    v-model:visible="showRegisterDialog"
     :selected-asset="undefined"
     list-label="name"
   />

@@ -36,7 +36,7 @@ export interface RegEditAssetBody {
   group: string;
   aliasName: string;
   name: string;
-  assetImage: string;
+  assetImage: File;
 }
 
 export interface DeleteAssetBody {

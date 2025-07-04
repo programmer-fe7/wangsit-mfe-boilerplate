@@ -10,7 +10,6 @@ import { computed, shallowRef } from 'vue';
 import { Badge, DataTable } from '@fewangsit/wangsvue';
 import { MenuItem } from '@fewangsit/wangsvue/components/menuitem';
 import { Asset } from '@/types/asset.type';
-import { GetAssetListResponseBody } from '@/types/assetService.type';
 
 import router from '@/router';
 import DialogEditRegisterAsset from './DialogEditRegisterAsset/DialogEditRegisterAsset.vue';
@@ -38,8 +37,6 @@ const singleAction: MenuItem[] = [
   },
 ];
 
-// FIXME: assetList isn't used for anything, delete it
-const assetList = shallowRef<GetAssetListResponseBody['data'] | null>(null);
 const selectedAsset = shallowRef<Asset>();
 const canShowEditAssetDialog = shallowRef<boolean>(false);
 
@@ -122,7 +119,6 @@ const getTableData = async (
   try {
     const { data } = await AssetServices.getAssetList(params);
 
-    assetList.value = data.data.data;
     return data;
   } catch (error) {
     console.error('Error while fetching detail:', error);

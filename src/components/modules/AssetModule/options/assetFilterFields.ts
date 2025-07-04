@@ -15,9 +15,7 @@ export const quickFilterFields: FilterField[] = [
           nameOptions: true,
         });
 
-        // FIXME: You should just return data.data.nameOptions
-        const { nameOptions } = data.data;
-        return nameOptions;
+        return data.data.nameOptions;
       } catch (error) {
         console.error(error);
         return [];

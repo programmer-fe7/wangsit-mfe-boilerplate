@@ -1,34 +1,19 @@
 <script setup lang="ts">
 import { Card, Image } from '@fewangsit/wangsvue';
 import { computed, onMounted, shallowRef } from 'vue';
-import { QueryParams } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { GetAssetDetailResponseBody } from '@/types/assetService.type';
 
 import AssetServices from '@/components/services/asset.service';
+import { Asset } from '@/types/asset.type';
 
 const props = defineProps<{
   selectedAssetId: string;
 }>();
 
 onMounted(() => {
-  getAssetData({ _id: props.selectedAssetId });
+  getAssetData();
 });
 
-/*
- * FIXME: Don't use null, use undefined instead, so it'll look like this:
- * const selectedAsset = shallowRef<GetAssetDetailResponseBody['data']>();
- *
- * Read this:
- * https://stackoverflow.com/questions/5076944/what-is-the-difference-between-null-and-undefined-in-javascript
- * selectedAsset doesn't have a value yet, it shouldn't have the value of 'null'
- *
- * Also, this:
- * GetAssetDetailResponseBody['data']
- * Isn't this just the same as the `Asset` type? Use that instead
- */
-const selectedAsset = shallowRef<GetAssetDetailResponseBody['data'] | null>(
-  null,
-);
+const selectedAsset = shallowRef<Asset>();
 
 const contentData = computed<{ key: string; value: string | undefined }[][]>(
   () => [
@@ -55,13 +40,11 @@ const contentData = computed<{ key: string; value: string | undefined }[][]>(
   ],
 );
 
-/*
- * FIXME: This function doesn't need an argument, just put the id
- * inside the AssetServices.getAsset function call
- */
-const getAssetData = async (params: QueryParams): Promise<void> => {
+const getAssetData = async (): Promise<void> => {
   try {
-    const { data } = await AssetServices.getAsset(params);
+    const { data } = await AssetServices.getAsset({
+      _id: props.selectedAssetId,
+    });
 
     selectedAsset.value = data.data;
   } catch (error) {

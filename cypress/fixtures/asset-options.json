@@ -1,0 +1,260 @@
+{
+    "data": {
+        "nameOptions": [
+            {
+                "label": "Laptop",
+                "value": "Laptop"
+            },
+            {
+                "label": "Printer",
+                "value": "Printer"
+            },
+            {
+                "label": "Samsung S24",
+                "value": "Samsung S24"
+            },
+            {
+                "label": "Volvo 12",
+                "value": "Volvo 12"
+            },
+            {
+                "label": "XIX Brum",
+                "value": "XIX Brum"
+            },
+            {
+                "label": "Xperia Z2",
+                "value": "Xperia Z2"
+            },
+            {
+                "label": "macbook_pro",
+                "value": "macbook_pro"
+            },
+            {
+                "label": "nama",
+                "value": "nama"
+            },
+            {
+                "label": "string",
+                "value": "string"
+            }
+        ],
+        "groupOptions": [
+            {
+                "label": "Garage",
+                "value": "Garage"
+            },
+            {
+                "label": "Garage 3",
+                "value": "Garage 3"
+            },
+            {
+                "label": "Manager car",
+                "value": "Manager car"
+            },
+            {
+                "label": "Office Room",
+                "value": "Office Room"
+            },
+            {
+                "label": "Police",
+                "value": "Police"
+            },
+            {
+                "label": "Room 1",
+                "value": "Room 1"
+            },
+            {
+                "label": "Room 2",
+                "value": "Room 2"
+            },
+            {
+                "label": "Room 5",
+                "value": "Room 5"
+            },
+            {
+                "label": "Wirehouse",
+                "value": "Wirehouse"
+            },
+            {
+                "label": "garage",
+                "value": "garage"
+            },
+            {
+                "label": "kantor",
+                "value": "kantor"
+            },
+            {
+                "label": "room_402",
+                "value": "room_402"
+            },
+            {
+                "label": "ruang 402",
+                "value": "ruang 402"
+            },
+            {
+                "label": "string",
+                "value": "string"
+            },
+            {
+                "label": "wirehouse",
+                "value": "wirehouse"
+            }
+        ],
+        "brandOptions": [
+            {
+                "label": "Apple",
+                "value": "Apple"
+            },
+            {
+                "label": "Hyundai",
+                "value": "Hyundai"
+            },
+            {
+                "label": "JBL",
+                "value": "JBL"
+            },
+            {
+                "label": "Oppo",
+                "value": "Oppo"
+            },
+            {
+                "label": "Samsung",
+                "value": "Samsung"
+            },
+            {
+                "label": "Sony",
+                "value": "Sony"
+            },
+            {
+                "label": "Tesla",
+                "value": "Tesla"
+            },
+            {
+                "label": "Vivo",
+                "value": "Vivo"
+            },
+            {
+                "label": "Volvo",
+                "value": "Volvo"
+            },
+            {
+                "label": "apple",
+                "value": "apple"
+            },
+            {
+                "label": "hyundai",
+                "value": "hyundai"
+            },
+            {
+                "label": "samsung",
+                "value": "samsung"
+            },
+            {
+                "label": "string",
+                "value": "string"
+            }
+        ],
+        "modelOptions": [
+            {
+                "label": "Asus",
+                "value": "Asus"
+            },
+            {
+                "label": "C",
+                "value": "C"
+            },
+            {
+                "label": "G73",
+                "value": "G73"
+            },
+            {
+                "label": "Macbook Pro",
+                "value": "Macbook Pro"
+            },
+            {
+                "label": "S24",
+                "value": "S24"
+            },
+            {
+                "label": "Supercars",
+                "value": "Supercars"
+            },
+            {
+                "label": "Ultra 24",
+                "value": "Ultra 24"
+            },
+            {
+                "label": "Volvo 31K",
+                "value": "Volvo 31K"
+            },
+            {
+                "label": "Z2",
+                "value": "Z2"
+            },
+            {
+                "label": "asus",
+                "value": "asus"
+            },
+            {
+                "label": "macbook_pro",
+                "value": "macbook_pro"
+            },
+            {
+                "label": "s23",
+                "value": "s23"
+            },
+            {
+                "label": "string",
+                "value": "string"
+            }
+        ],
+        "categoryOptions": [
+            {
+                "label": "Car",
+                "value": "Car"
+            },
+            {
+                "label": "Earphone",
+                "value": "Earphone"
+            },
+            {
+                "label": "Electronic",
+                "value": "Electronic"
+            },
+            {
+                "label": "Elektronik",
+                "value": "Elektronik"
+            },
+            {
+                "label": "Sanitasi",
+                "value": "Sanitasi"
+            },
+            {
+                "label": "Transportasi",
+                "value": "Transportasi"
+            },
+            {
+                "label": "elektronik",
+                "value": "elektronik"
+            },
+            {
+                "label": "hp",
+                "value": "hp"
+            },
+            {
+                "label": "sanitasi",
+                "value": "sanitasi"
+            },
+            {
+                "label": "string",
+                "value": "string"
+            },
+            {
+                "label": "test",
+                "value": "test"
+            }
+        ]
+    },
+    "message": "Successfully get asset options",
+    "status": 200
+}
