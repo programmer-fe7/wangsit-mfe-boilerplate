@@ -31,10 +31,6 @@ const assetSelected = shallowRef<Asset[]>([]);
 const showDeleteDialog = shallowRef<boolean>(false);
 const showRegisterDialog = shallowRef<boolean>(false);
 
-const changeRegisterAssetDialogVisibilityState = (): void => {
-  showRegisterDialog.value = !showRegisterDialog.value;
-};
-
 const confirmDeletion = async (): Promise<void> => {
   try {
     for (const asset of assetSelected.value) {
@@ -57,13 +53,9 @@ const confirmDeletion = async (): Promise<void> => {
     <ButtonSearch class="ml-auto" table-name="asset-list" />
     <ButtonDownload file-name="Download" table-name="asset-list" />
     <ButtonFilter table-name="asset-list" />
-    <!--
-      TODO: The button below will always show the dialog, so just change it to
-      `canShowRegisterAssetDialog = true`. No need for a new function.
-    -->
     <Button
       :outlined="false"
-      @click="changeRegisterAssetDialogVisibilityState"
+      @click="showRegisterDialog = true"
       icon="add"
       icon-pos="left"
       label="Register"

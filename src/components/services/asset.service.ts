@@ -49,14 +49,20 @@ const AssetServices = {
   },
 
   postRegisterAsset: (body: RegEditAssetBody): Promise<AxiosResponse<void>> => {
-    return createAPIInstance().post('/', body);
+    return createAPIInstance({ 'Content-Type': 'multipart/form-data' }).post(
+      '/',
+      body,
+    );
   },
 
   putEditAsset: (
     params: UpdateAssetParams,
     body: RegEditAssetBody,
   ): Promise<AxiosResponse<void>> => {
-    return createAPIInstance().put(`/${params._id}`, body);
+    return createAPIInstance({ 'Content-Type': 'multipart/form-data' }).put(
+      `/${params._id}`,
+      body,
+    );
   },
 
   deleteAsset: (params: DeleteAssetBody): Promise<AxiosResponse<void>> => {

@@ -74,7 +74,6 @@ const submitForm = async (payload: DialogFormPayload): Promise<void> => {
   const { stayAfterSubmit, formValues } = payload;
 
   try {
-    console.log(formValues as unknown as RegEditAssetBody);
     if (mode.value === 'Register') {
       await AssetServices.postRegisterAsset(
         formValues as unknown as RegEditAssetBody,
@@ -86,10 +85,13 @@ const submitForm = async (payload: DialogFormPayload): Promise<void> => {
       );
     }
 
+    nameValue.value = undefined;
+    brandValue.value = undefined;
+    dialogform.value?.clearField();
     if (stayAfterSubmit) {
-      dialogform.value?.clearField();
       groupValue.value = formValues.group as string;
     }
+
     eventBus.emit('data-table:update', { tableName: 'asset-list' });
     toast.add({
       message: 'Success, asset has been ' + mode.value.toLowerCase() + 'ed.',
@@ -103,10 +105,16 @@ const submitForm = async (payload: DialogFormPayload): Promise<void> => {
     });
   }
 };
+
+const closeForm = (): void => {
+  nameValue.value = undefined;
+  brandValue.value = undefined;
+};
 </script>
 
 <template>
   <DialogForm
+    ref="dialogform"
     v-model:visible="isVisible"
     :aside-right-width="600"
     :buttons-template="['submit', 'cancel', 'clear']"
@@ -114,6 +122,7 @@ const submitForm = async (payload: DialogFormPayload): Promise<void> => {
     :header="mode + ' Asset'"
     :reset-after-submit="false"
     :show-stay-checkbox="mode === 'Register'"
+    @close="closeForm"
     @submit="submitForm"
     severity="success"
     width="medium"
@@ -123,7 +132,7 @@ const submitForm = async (payload: DialogFormPayload): Promise<void> => {
         <div class="grid grid-cols-2 gap-4">
           <Dropdown
             v-model="groupValue"
-            :initial-value="props.selectedAsset?.group"
+            :initial-value="groupValue || props.selectedAsset?.group"
             :options="dropdownOptions.groupOptions"
             field-name="group"
             label="Group"
