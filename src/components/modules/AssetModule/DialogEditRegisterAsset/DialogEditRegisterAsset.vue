@@ -61,6 +61,10 @@ const getAssetOptions = async (params: QueryParams): Promise<Option[]> => {
 };
 
 const getDropdownOptions = async (): Promise<void> => {
+  /*
+   * FIXME: Don't call the API multiple times, you only need to call it once,
+   * with all of the parameters combined
+   */
   dropdownOptions.value = {
     nameOptions: await getAssetOptions({ nameOptions: true }),
     groupOptions: await getAssetOptions({ groupOptions: true }),

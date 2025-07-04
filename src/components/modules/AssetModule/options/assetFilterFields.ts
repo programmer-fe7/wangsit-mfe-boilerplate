@@ -15,6 +15,10 @@ export const filterFields: FilterField[] = [
           nameOptions: true,
         });
 
+        /*
+         * FIXME: You should just return data.data.nameOptions,
+         * do this for all of the other options
+         */
         const { nameOptions } = data.data;
         return nameOptions;
       } catch (error) {
