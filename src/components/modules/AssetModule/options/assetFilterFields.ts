@@ -15,12 +15,7 @@ export const filterFields: FilterField[] = [
           nameOptions: true,
         });
 
-        /*
-         * FIXME: You should just return data.data.nameOptions,
-         * do this for all of the other options
-         */
-        const { nameOptions } = data.data;
-        return nameOptions;
+        return data.data.nameOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -38,8 +33,7 @@ export const filterFields: FilterField[] = [
           groupOptions: true,
         });
 
-        const { groupOptions } = data.data;
-        return groupOptions;
+        return data.data.groupOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -57,8 +51,7 @@ export const filterFields: FilterField[] = [
           brandOptions: true,
         });
 
-        const { brandOptions } = data.data;
-        return brandOptions;
+        return data.data.brandOptions;
       } catch (error) {
         console.error(error);
         return [];
@@ -76,8 +69,7 @@ export const filterFields: FilterField[] = [
           modelOptions: true,
         });
 
-        const { modelOptions } = data.data;
-        return modelOptions;
+        return data.data.modelOptions;
       } catch (error) {
         console.error(error);
         return [];

@@ -33,7 +33,7 @@ const AssetServices = {
   getAssetList: (
     params: GetAssetListParams,
   ): Promise<AxiosResponse<FetchListResponse<Asset>>> => {
-    return createAPIInstance().get('/', { params });
+    return createAPIInstance().get('', { params });
   },
 
   getAsset: (

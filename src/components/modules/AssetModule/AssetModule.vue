@@ -116,14 +116,8 @@ const tableColumns = computed<TableColumn[]>(() => {
 const getTableData = async (
   params: QueryParams,
 ): Promise<FetchResponse<Asset>> => {
-  try {
-    const { data } = await AssetServices.getAssetList(params);
-
-    return data;
-  } catch (error) {
-    console.error('Error while fetching detail:', error);
-    return Promise.reject(error);
-  }
+  const { data } = await AssetServices.getAssetList(params);
+  return data;
 };
 </script>
 

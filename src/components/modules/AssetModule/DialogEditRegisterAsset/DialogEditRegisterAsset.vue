@@ -10,10 +10,8 @@ import {
 
 import { RegEditAssetBody } from '@/components/dto/assetService.dto';
 
-import { Option } from '@fewangsit/wangsvue/components/dropdown/Dropdown.vue';
 import { DialogFormPayload } from '@fewangsit/wangsvue/components/dialogform/DialogForm.vue';
-import { QueryParams } from '@fewangsit/workspace-api-services/src/types/fetchResponse.type';
-import { computed, onMounted, shallowRef } from 'vue';
+import { computed, shallowRef } from 'vue';
 import { Asset, AssetOption } from '@/types/asset.type';
 
 import AssetServices from '@/components/services/asset.service';
@@ -23,10 +21,6 @@ const props = defineProps<{
 }>();
 
 const isVisible = defineModel<boolean>('visible', { default: false });
-
-onMounted(() => {
-  getDropdownOptions();
-});
 
 const toast = useToast();
 
@@ -46,31 +40,20 @@ const mode = computed<string>(() => {
   return props.selectedAsset ? 'Edit' : 'Register';
 });
 
-const getAssetOptions = async (params: QueryParams): Promise<Option[]> => {
-  try {
-    const { data } = await AssetServices.getAssetOptions(params);
-
-    // Get the key that has the value true, example { groupOptions: true }
-    const key = Object.keys(params).find((k) => params[k]);
-
-    return data.data[key as keyof AssetOption];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
 const getDropdownOptions = async (): Promise<void> => {
-  /*
-   * FIXME: Don't call the API multiple times, you only need to call it once,
-   * with all of the parameters combined
-   */
+  const assetOptions = await AssetServices.getAssetOptions({
+    nameOptions: true,
+    groupOptions: true,
+    brandOptions: true,
+    modelOptions: true,
+    categoryOptions: true,
+  });
   dropdownOptions.value = {
-    nameOptions: await getAssetOptions({ nameOptions: true }),
-    groupOptions: await getAssetOptions({ groupOptions: true }),
-    brandOptions: await getAssetOptions({ brandOptions: true }),
-    modelOptions: await getAssetOptions({ modelOptions: true }),
-    categoryOptions: await getAssetOptions({ categoryOptions: true }),
+    nameOptions: assetOptions.data.data.nameOptions,
+    groupOptions: assetOptions.data.data.groupOptions,
+    brandOptions: assetOptions.data.data.brandOptions,
+    modelOptions: assetOptions.data.data.modelOptions,
+    categoryOptions: assetOptions.data.data.categoryOptions,
   };
 };
 
@@ -114,6 +97,10 @@ const closeForm = (): void => {
   nameValue.value = undefined;
   brandValue.value = undefined;
 };
+
+const showForm = (): void => {
+  getDropdownOptions();
+};
 </script>
 
 <template>
@@ -127,6 +114,7 @@ const closeForm = (): void => {
     :reset-after-submit="false"
     :show-stay-checkbox="mode === 'Register'"
     @close="closeForm"
+    @show="showForm"
     @submit="submitForm"
     severity="success"
     width="medium"
