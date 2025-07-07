@@ -48,6 +48,13 @@ const getDropdownOptions = async (): Promise<void> => {
     modelOptions: true,
     categoryOptions: true,
   });
+  /*
+   * TODO: You can simplify the object assignment by using
+   * the spread operator (...)
+   */
+  dropdownOptions.value = {
+    ...assetOptions.data.data,
+  };
   dropdownOptions.value = {
     nameOptions: assetOptions.data.data.nameOptions,
     groupOptions: assetOptions.data.data.groupOptions,

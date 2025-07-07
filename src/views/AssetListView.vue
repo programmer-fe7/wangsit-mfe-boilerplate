@@ -6,6 +6,7 @@ import AssetModule from '@/components/modules/AssetModule/AssetModule.vue';
 
 const { setBreadcrumbs } = useBreadcrumbStore();
 
+// TODO: The breadcrumb doesn't suit the Figma design
 const menus: BreadcrumbMenu[] = [
   {
     name: 'Wangs',

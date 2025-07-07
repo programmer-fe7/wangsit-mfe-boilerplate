@@ -19,6 +19,7 @@ const currentRoute = computed<string>(() => {
 
 <template>
   <Breadcrumb :menus="breadcrumbs" />
+  <!-- FIXME: Delete currentRoute, it's not in the Figma design -->
   <div>{{ currentRoute }}</div>
   <Card>
     <template #content>

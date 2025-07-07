@@ -54,6 +54,10 @@ const getAssetData = async (): Promise<void> => {
 </script>
 
 <template>
+  <!--
+    TODO: There are a lot of things here that doesn't match the design.
+    The pading, gaps, font size, font weights, etc.
+  -->
   <Card>
     <template #title>
       <div class="flex justify-between items-center">
