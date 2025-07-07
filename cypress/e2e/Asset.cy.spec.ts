@@ -1,5 +1,8 @@
 describe('/asset', () => {
   beforeEach(() => {
+    cy.intercept('GET', '**/assets/options*', {
+      fixture: 'asset-options.json',
+    }).as('getAssetOptions');
     cy.viewport(1280, 720);
     cy.visit('/asset-list');
   });
@@ -82,70 +85,43 @@ describe('/asset', () => {
     cy.get('@consoleError').should('have.been.called');
   });
 
-  it('should have the correct filter options', () => {
+  it.only('should have the correct filter options', () => {
     cy.intercept('GET', '**/assets*', { fixture: 'asset-list.json' }).as(
       'getAssetList',
     );
 
+    cy.wait('@getAssetList');
     cy.getSection('tabletoolbars').within(() => {
       cy.getByName('buttonfilter').click();
     });
 
-    cy.intercept('GET', '**/assets/options*', {
-      fixture: 'asset-options.json',
-    }).as('getAssetOptions');
-
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="name"]').click();
-    });
-    cy.get('[data-pc-section="panel"]').within(() => {
-      cy.get('[role="listbox"]').within(() => {
-        cy.contains('Laptop');
-        cy.contains('macbook_pro');
+    const testOption = (
+      field: string,
+      value1: string,
+      value2: string,
+    ): void => {
+      // Click to open filter
+      cy.getByName('filtercontainer').within(() => {
+        cy.get(`[fieldname="${field}"]`).click();
       });
-    });
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="name"]').click();
-    });
 
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="group"]').click();
-    });
-    cy.get('[data-pc-section="panel"]').within(() => {
-      cy.get('[role="listbox"]').within(() => {
-        cy.contains('Garage');
-        cy.contains('wirehouse');
+      cy.get('[data-pc-section="panel"]').within(() => {
+        cy.get('[role="listbox"]').within(() => {
+          cy.contains(value1);
+          cy.contains(value2);
+        });
       });
-    });
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="group"]').click();
-    });
 
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="brand"]').click();
-    });
-    cy.get('[data-pc-section="panel"]').within(() => {
-      cy.get('[role="listbox"]').within(() => {
-        cy.contains('Apple');
-        cy.contains('samsung');
+      // Click to close filter
+      cy.getByName('filtercontainer').within(() => {
+        cy.get(`[fieldname="${field}"]`).click();
       });
-    });
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="brand"]').click();
-    });
+    };
 
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="model"]').click();
-    });
-    cy.get('[data-pc-section="panel"]').within(() => {
-      cy.get('[role="listbox"]').within(() => {
-        cy.contains('Asus');
-        cy.contains('s23');
-      });
-    });
-    cy.getByName('filtercontainer').within(() => {
-      cy.get('[fieldname="model"]').click();
-    });
+    testOption('name', 'Laptop', 'macbook_pro');
+    testOption('group', 'Garage', 'wirehouse');
+    testOption('brand', 'Apple', 'samsung');
+    testOption('model', 'Asus', 's23');
   });
 
   it('error when failing to fetch asset options', () => {
