@@ -46,6 +46,27 @@ describe('/asset', () => {
       cy.getByName('buttonfilter').click();
     });
 
+    /*
+     * TODO: The tests below are repetitive, use this function instead.
+     * In general, repetitive tests can be made into functions.
+     */
+    const testOption = (
+      field: string,
+      value1: string,
+      value2: string,
+    ): void => {
+      cy.getByName('filtercontainer').within(() => {
+        cy.get(`[fieldname="${field}"]`).click();
+      });
+      cy.get('[data-pc-section="panel"]').within(() => {
+        cy.get('[role="listbox"]').within(() => {
+          cy.contains(value1);
+          cy.contains(value2);
+        });
+      });
+    };
+    testOption('name', 'Laptop', 'macbook_pro');
+
     cy.intercept('GET', '**/assets/options*', {
       fixture: 'asset-options.json',
     }).as('getAssetOptions');
@@ -63,6 +84,11 @@ describe('/asset', () => {
       cy.get('[fieldname="name"]').click();
     });
 
+    /*
+     * FIXME: You've already intercepted this API request. The same intercept
+     * applies to all of the current 'it' test. You can intercept it
+     * inside the beforeEach command, so it applies to all 'it' tests.
+     */
     cy.intercept('GET', '**/assets/options*', {
       fixture: 'asset-options.json',
     }).as('getAssetOptions');
