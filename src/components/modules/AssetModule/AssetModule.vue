@@ -20,8 +20,7 @@ import AssetServices from '@/components/services/asset.service';
 const singleAction: MenuItem[] = [
   {
     label: 'Detail',
-    // TODO: The icon doesn't match the design
-    icon: 'file-copy',
+    icon: 'file-copy-2-line',
     command: (): void => {
       router.push({
         name: 'AssetDetailView',

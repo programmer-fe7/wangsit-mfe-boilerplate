@@ -1,11 +1,11 @@
 {
     "data": {
         "_id": "678e2278e1bcee39dbad397e",
-        "category": "test",
-        "brand": "Tesla",
-        "model": "C",
-        "group": "Room 5",
-        "name": "XIX Brum",
+        "category": "Kendaraan > Mobil > Mobil operasional",
+        "brand": "Daihatsu",
+        "model": "Grand Max PU",
+        "group": "Kacab 1 > Gedung A > Div Pengadaan",
+        "name": "Mobil Pickup (Punya Mark) - 1",
         "aliasName": "",
         "assetImage": "",
         "assetNumber": 3,

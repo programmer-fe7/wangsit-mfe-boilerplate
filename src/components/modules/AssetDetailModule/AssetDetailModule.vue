@@ -29,7 +29,7 @@ const contentData = computed<{ key: string; value: string | undefined }[][]>(
     ],
     [
       {
-        key: 'Model',
+        key: 'Model/Type',
         value: selectedAsset.value?.model,
       },
       {
@@ -54,17 +54,17 @@ const getAssetData = async (): Promise<void> => {
 </script>
 
 <template>
-  <!--
-    TODO: There are a lot of things here that doesn't match the design.
-    The pading, gaps, font size, font weights, etc.
-  -->
-  <Card>
+  <Card :pt="{ root: { class: 'p-0' } }">
     <template #title>
-      <div class="flex justify-between items-center">
-        <div class="text-xl font-semibold">{{ selectedAsset?.name }}</div>
-        <div>
-          <div class="text-sm text-gray-500">Last Modified:</div>
-          <div class="font-normal text-xs">
+      <div class="flex justify-between items-center gap-[100px]">
+        <div class="text-base font-bold text-general-800">
+          {{ selectedAsset?.name }}
+        </div>
+        <div class="ml-auto text-right flex flex-col items-end">
+          <span class="text-[9px] font-medium text-general-400 leading-normal">
+            Last Modified:
+          </span>
+          <div class="text-xs font-medium text-general-800">
             {{
               `${selectedAsset?.updatedAt} by ${selectedAsset?.userFirstName}`
             }}
@@ -74,20 +74,28 @@ const getAssetData = async (): Promise<void> => {
     </template>
 
     <template #content>
-      <div class="flex justify-start gap-4">
+      <div class="flex justify-start gap-[24px]">
         <div>
           <Image :preview="false" :src="selectedAsset?.assetImage" size="big" />
         </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="col-span-2 font-bold text-base">General Information</div>
-          <div
-            :key="columnIndex"
-            v-for="(column, columnIndex) in contentData"
-            class="grid grid-rows-2 gap-2 content-start"
-          >
-            <div :key="rowIndex" v-for="(row, rowIndex) in column">
-              <div class="text-xs text-gray-500">{{ row.key }}</div>
-              <div class="font-semibold">{{ row.value }}</div>
+        <div class="flex flex-col gap-[4px]">
+          <div class="text-xs font-bold text-general-800">
+            General Information
+          </div>
+          <div class="grid grid-cols-2 gap-[32px]">
+            <div
+              :key="columnIndex"
+              v-for="(column, columnIndex) in contentData"
+              class="grid grid-rows-2 content-start"
+            >
+              <div :key="rowIndex" v-for="(row, rowIndex) in column">
+                <div class="text-[9px] font-medium text-general-400">
+                  {{ row.key }}
+                </div>
+                <div class="text-xs font-medium text-general-800">
+                  {{ row.value }}
+                </div>
+              </div>
             </div>
           </div>
         </div>

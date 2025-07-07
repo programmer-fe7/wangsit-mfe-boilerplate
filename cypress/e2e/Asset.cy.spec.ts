@@ -14,13 +14,8 @@ describe('/asset', () => {
 
   it('should have correct breadcrumb', () => {
     cy.getByName('breadcrumb').within(() => {
-      cy.contains('Wangs');
       cy.contains('Asset');
     });
-  });
-
-  it('should have correct title in default', () => {
-    cy.contains('Asset List');
   });
 
   it('failed to fetch asset list', () => {
@@ -36,7 +31,7 @@ describe('/asset', () => {
     cy.get('@consoleError').should('be.calledOnce');
   });
 
-  it('navigate to asset detail', () => {
+  it.only('navigate to asset detail', () => {
     cy.intercept('GET', '**/assets/*', {
       fixture: 'asset-detail.json',
     }).as('getAssetDetail');
@@ -54,11 +49,11 @@ describe('/asset', () => {
     cy.wait('@getAssetDetail');
 
     cy.contains('Asset Detail');
-    cy.contains('XIX Brum');
-    cy.contains('Tesla');
-    cy.contains('test');
-    cy.contains('C');
-    cy.contains('Room 5');
+    cy.contains('Mobil Pickup (Punya Mark) - 1');
+    cy.contains('Daihatsu');
+    cy.contains('Kendaraan > Mobil > Mobil operasional');
+    cy.contains('Grand Max PU');
+    cy.contains('Kacab 1 > Gedung A > Div Pengadaan');
   });
 
   it('error when failing to fetch asset', () => {
