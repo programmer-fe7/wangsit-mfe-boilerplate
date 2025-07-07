@@ -9,12 +9,10 @@ const { breadcrumbs } = useBreadcrumbStore();
 
 const currentRoute = computed<string>(() => {
   switch (router.currentRoute.value.name) {
-    case 'AssetListView':
-      return 'Asset List';
     case 'AssetDetailView':
       return 'Asset Detail';
     default:
-      return 'Unknown Page';
+      return 'Asset List';
   }
 });
 </script>

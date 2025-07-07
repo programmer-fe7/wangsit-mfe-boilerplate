@@ -49,7 +49,6 @@ const getAssetData = async (): Promise<void> => {
     selectedAsset.value = data.data;
   } catch (error) {
     console.error('Error while fetching detail:', error);
-    return Promise.reject(error);
   }
 };
 </script>
